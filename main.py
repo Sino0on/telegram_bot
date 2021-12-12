@@ -3,6 +3,18 @@ import random
 
 from telebot import types
 
+def tre(corzina):
+    a = ''
+    total = 0
+    for i, j in corzina.items():
+        print(i, j)
+        a += str(i)
+        a += ' ' + str(j) + '$' + '\n'
+        total += j
+        print(a, total)
+    a += '\n' + 'Сумма: ' + str(total)+ "$"
+    return a
+
 
 bot = telebot.TeleBot("5058513599:AAHz-g--k_QnMpnaExUi-88VZHDE8SYslmc", parse_mode=None) # You can set parse_mode by default. HTML or MARKDOWN
 corzina = {}
@@ -36,7 +48,7 @@ def answer(message):
             if corzina == {}:
                 bot.send_message(message.chat.id, 'Корзина пуста')
             else:
-                bot.send_message(message.chat.id, corzina)
+                bot.send_message(message.chat.id, tre(corzina))
         elif message.text == 'Стационарки':
             markup = types.InlineKeyboardMarkup(row_width=2)
             nout1 = telebot.types.InlineKeyboardButton("Видеокарта",  callback_data = 'gpu')
@@ -54,124 +66,234 @@ def answer(message):
                              "Обратитесь к консультанту")
 
 
-@bot.callback_query_handler(func=lambda call: True)
+
+
+@bot.callback_query_handler(func=lambda call:True)
 def callback(call):
-    try:
-        if call.message:
-            if call.data == 'mac':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_mac')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '1050$', reply_markup=markup)
-            if call.data == 'dell':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_dell')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '850$', reply_markup=markup)
+    if call.message:
+        if call.data == 'mac':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_mac')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '1050$', reply_markup=markup)
+        if call.data == 'dell':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_dell')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '850$', reply_markup=markup)
 
-            if call.data == 'lenovo':
+        if call.data == 'lenovo':
 
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_len')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '500$', reply_markup=markup)
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_len')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '500$', reply_markup=markup)
 
-            if call.data == 'acer':
+        if call.data == 'acer':
 
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_acer')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_acer')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
 
-                bot.send_message(call.message.chat.id, '350$', reply_markup=markup)
+            bot.send_message(call.message.chat.id, '350$', reply_markup=markup)
 
-            if call.data == 'hp':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_hp')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+        if call.data == 'hp':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_hp')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
 
-            if call.data == 'gpu':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_gpu')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
-            if call.data == 'cpu':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_cpu')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+        if call.data == 'gpu':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_gpu')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+        if call.data == 'cpu':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_cpu')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+        if call.data == 'ram':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_ram')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+        if call.data == 'ssd':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_ssd')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+        if call.data == 'pitanie':
 
-            if call.data == 'ram':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_ram')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
-            if call.data == 'ssd':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_ssd')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
-            if call.data == 'plata':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_plata')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
-            if call.data == 'pitanie':
-                markup = types.InlineKeyboardMarkup(row_width=2)
-                btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_pitanie')
-                btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
-                markup.add(btn1, btn2)
-                bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
-
-
-            bot.edit_message_text(
-                chat_id=call.message.chat.id,
-                message_id=call.message.message_id
-            )
-            if call.data == 'back':
-                bot.send_message(call.message.chat.id, 'asdasdsa')
-    except:
-        print('Error1')
-
-@bot.callback_query_handler(func= lambda call: True)
-def korzina(call):
-    try:
-        if call.message:
-            if call.data == 'corzina_hp':
-                corzina['hp'] = '150$'
-                bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
-                # return corzina
-            if call.data == 'corzina_len':
-                corzina['lenovo'] = '500$'
-                bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
-                # return corzina
-            if call.data == 'corzina_acer':
-                corzina['acer'] = '350$'
-                bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
-                # return corzina
-            if call.data == 'corzina_dell':
-                corzina['dell'] = '850$'
-                bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
-                # return corzina
-            if call.data == 'corzina_mac':
-                corzina['mac'] = '1050$'
-                bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
-                # return corzina
-    except:
-        print('Error')
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_pitanie')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
 
 
 
+        if call.data == 'corzina_hp':
+            corzina['hp'] = 150
+            print(corzina)
+            bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+            # return corzina
+        if call.data == 'corzina_len':
+            corzina['lenovo'] = 500
+            bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+            # return corzina
+        if call.data == 'corzina_acer':
+            corzina['acer'] = 350
+            bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+            # return corzina
+        if call.data == 'corzina_dell':
+            corzina['dell'] = 850
+            bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+            # return corzina
+        if call.data == 'corzina_mac':
+            corzina['mac'] = 1050
+            bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+            # return corzina
+
+        if call.data == 'plata':
+            markup = types.InlineKeyboardMarkup(row_width=2)
+            btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_plata')
+            btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+            markup.add(btn1, btn2)
+            bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+
+# @bot.callback_query_handler(func=lambda call: True)
+# def callback(call):
+#     try:
+#         if call.message:
+#             if call.data == 'mac':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_mac')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '1050$', reply_markup=markup)
+#             if call.data == 'dell':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_dell')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '850$', reply_markup=markup)
+#
+#             if call.data == 'lenovo':
+#
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_len')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '500$', reply_markup=markup)
+#
+#             if call.data == 'acer':
+#
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_acer')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#
+#                 bot.send_message(call.message.chat.id, '350$', reply_markup=markup)
+#
+#             if call.data == 'hp':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_hp')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+#
+#             if call.data == 'gpu':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_gpu')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+#             if call.data == 'cpu':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_cpu')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+#
+#             if call.data == 'ram':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_ram')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+#             if call.data == 'ssd':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_ssd')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+#             if call.data == 'plata':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_plata')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+#             if call.data == 'pitanie':
+#                 markup = types.InlineKeyboardMarkup(row_width=2)
+#                 btn1 = telebot.types.InlineKeyboardButton('Добавить товар в корзину?', callback_data='corzina_pitanie')
+#                 btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
+#                 markup.add(btn1, btn2)
+#                 bot.send_message(call.message.chat.id, '150$', reply_markup=markup)
+#
+#
+#             bot.edit_message_text(
+#                 chat_id=call.message.chat.id,
+#                 message_id=call.message.message_id
+#             )
+#             if call.data == 'back':
+#                 bot.send_message(call.message.chat.id, 'asdasdsa')
+#     except:
+#         print('Error1')
+#
+# @bot.callback_query_handler(func= lambda call: True)
+# def korzina(call):
+#     try:
+#         if call.message:
+#             if call.data == 'corzina_hp':
+#                 corzina['hp'] = '150$'
+#                 bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+#                 # return corzina
+#             if call.data == 'corzina_len':
+#                 corzina['lenovo'] = '500$'
+#                 bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+#                 # return corzina
+#             if call.data == 'corzina_acer':
+#                 corzina['acer'] = '350$'
+#                 bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+#                 # return corzina
+#             if call.data == 'corzina_dell':
+#                 corzina['dell'] = '850$'
+#                 bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+#                 # return corzina
+#             if call.data == 'corzina_mac':
+#                 corzina['mac'] = '1050$'
+#                 bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину\nПроверьте свою корзину!')
+#                 # return corzina
+#     except:
+#         print('Error')
+#
+#
+#
+#
+#
+#
+#
+#
 
 
 bot.polling(none_stop=True)

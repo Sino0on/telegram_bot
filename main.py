@@ -16,7 +16,7 @@ def tre(corzina):
     return a
 
 
-bot = telebot.TeleBot("", parse_mode=None) # You can set parse_mode by default. HTML or MARKDOWN
+bot = telebot.TeleBot("5058513599:AAGLVTYW4CyrPHc8xZsZUWgKcx-coFs_OSA", parse_mode=None) # You can set parse_mode by default. HTML or MARKDOWN
 corzina = {}
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -30,9 +30,11 @@ def send_welcome(message):
                      "Выберите компьютер: ",
                      reply_markup=markup)
 
+
 @bot.message_handler(content_types=['text'])
 def answer(message):
     if message.chat.type == 'private':
+
         if message.text == 'Ноутбуки 💻':
             markup = types.InlineKeyboardMarkup(row_width=2)
             nout1 = telebot.types.InlineKeyboardButton("Macbook",  callback_data = 'mac')
@@ -48,7 +50,16 @@ def answer(message):
             if corzina == {}:
                 bot.send_message(message.chat.id, 'Корзина пуста 🛒')
             else:
-                bot.send_message(message.chat.id, tre(corzina))
+                print('1')
+                korzin = types.InlineKeyboardMarkup(row_width=1)
+                print('2')
+                cor = telebot.types.InlineKeyboardButton('Очистить корзину 🛒', callback_data = 'clear_bin')
+                print('3')
+                korzin.add(cor)
+                print('4')
+                bot.send_message(message.chat.id, tre(corzina), reply_markup=korzin)
+                print('5')
+
         elif message.text == 'Стационарки 🖥':
             markup = types.InlineKeyboardMarkup(row_width=2)
             nout1 = telebot.types.InlineKeyboardButton("Видеокарта",  callback_data = 'gpu')
@@ -64,6 +75,7 @@ def answer(message):
         else:
             bot.send_message(message.chat.id,
                              "Обратитесь к консультанту 👨‍💼")
+
 
 
 
@@ -91,6 +103,12 @@ def callback(call):
             btn2 = telebot.types.InlineKeyboardButton('Назад...', callback_data="back")
             markup.add(btn1, btn2)
             bot.send_message(call.message.chat.id, '500$', reply_markup=markup)
+
+        if call.data == 'clear_bin':
+            global corzina
+            print(7)
+            corzina = {}
+
 
         if call.data == 'acer':
 
@@ -168,6 +186,9 @@ def callback(call):
             corzina['MacBook Pro'] = 1050
             bot.send_message(call.message.chat.id, 'Товар успешно был добавлен в корзину 🛒\nПроверьте свою корзину!')
             # return corzina
+
+        if call.data == 'back':
+            pass
 
 
         if call.data == 'corzina_gpu':
